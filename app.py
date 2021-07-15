@@ -1,8 +1,7 @@
 from todo import Todo
+from generate_data import GenerateData
 
-t = Todo("buy kebab", False, "Damian")
-t2 = Todo("buy bread", False, "Damian")
-
-print(t)
-print(t2)
-print(dir(object))
+for task in GenerateData.load_data():
+    task_list = task[:-1].split(", ")
+    t = Todo(*task_list)
+    print(t)
