@@ -1,6 +1,13 @@
 from datetime import datetime, date
 
 
+def sorting(fn):
+    def inner(*args, **kwargs):
+        return sorted(fn(*args, **kwargs), key=lambda x: x.created_at)
+
+    return inner
+
+
 class Dashboard:
 
     def __init__(self, todos=None):
@@ -16,6 +23,7 @@ class Dashboard:
         except ValueError:
             raise ValueError(f"Invalid date format: {input_date}")
 
+    @sorting
     def filter_task_by_date(self, start_date=None, end_date=None):
         start = start_date or datetime.min  # falsy, truthy
         end = end_date or datetime.max
